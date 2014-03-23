@@ -28,7 +28,7 @@ simulated event BecomeViewTarget( PlayerController PC )
          //set player controller to behind view and make mesh visible
          UTPC.SetBehindView(true);
          // SetMeshVisibility(UTPC.bBehindView); 
-         UTPC.bNoCrosshair = false;
+         UTPC.bNoCrosshair = true;
       }
    }
 }
@@ -88,16 +88,17 @@ simulated function CamZoomOut()
     if(CamOffsetDistance < CamMaxDistance)  CamOffsetDistance+=CamZoomTick;
 }
 
+
 defaultproperties
 {
     Physics = PHYS_Flying
-    LandMovementState=PlayerFlying
-    
+    LandMovementState = PlayerFlying
     CamHeight = 90.0
     CamMinDistance = 40.0
     CamMaxDistance = 350.0
-    CamOffsetDistance=250.0
-    CamZoomTick=20.0    
+    CamOffsetDistance = 200.0
+    CamZoomTick = 20.0    
+    MaxMultiJump = 1
    
     
 }

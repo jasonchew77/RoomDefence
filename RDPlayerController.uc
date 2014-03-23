@@ -23,8 +23,8 @@ ignores SeePlayer, HearNoise, Bump;
          Pawn.SetRemoteViewPitch( Rotation.Pitch );
       }
 
-      tempAccel.Y =  PlayerInput.aStrafe * DeltaTime * 100 * PlayerInput.MoveForwardSpeed;
-      tempAccel.X = PlayerInput.aForward * DeltaTime * 100 * PlayerInput.MoveForwardSpeed;
+      tempAccel.Y =  PlayerInput.aStrafe * DeltaTime * 10 * PlayerInput.MoveForwardSpeed;
+      tempAccel.X = PlayerInput.aForward * DeltaTime * 10 * PlayerInput.MoveForwardSpeed;
       tempAccel.Z = 0; //no vertical movement for now, may be needed by ladders later
       
      //get the controller yaw to transform our movement-accelerations by
@@ -34,7 +34,13 @@ ignores SeePlayer, HearNoise, Bump;
    
     Pawn.FaceRotation(Rotation,DeltaTime); //notify pawn of rotation
 
-    CheckJumpOrDuck();
+    //CheckJumpOrDuck();
+    
+    if ( bPressedJump )
+           {
+        Pawn.DoJump( bUpdating );
+        bDoubleJump = false;
+           }
    }
 }
 
