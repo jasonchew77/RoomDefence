@@ -35,12 +35,7 @@ ignores SeePlayer, HearNoise, Bump;
     Pawn.FaceRotation(Rotation,DeltaTime); //notify pawn of rotation
 
     //CheckJumpOrDuck();
-    
-    if ( bPressedJump )
-           {
-        Pawn.DoJump( bUpdating );
-        bDoubleJump = false;
-           }
+  
    }
 }
 

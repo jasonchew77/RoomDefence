@@ -9,7 +9,7 @@ simulated event PostBeginPlay()
 {
     super.PostBeginPlay();
     SetPhysics(PHYS_Flying);
-    `Log("Custom Pawn up"); //debug
+    //`Log("Custom Pawn up"); //debug
 
 }
 
@@ -32,11 +32,11 @@ simulated event BecomeViewTarget( PlayerController PC )
       }
    }
 }
-
-/*
+   /*
 //only update pawn rotation while moving
 simulated function FaceRotation(rotator NewRotation, float DeltaTime)
 {
+  
     // Do not update Pawn's rotation if no accel
     if (Normal(Acceleration)!=vect(0,0,0))
     {
@@ -55,7 +55,6 @@ simulated function FaceRotation(rotator NewRotation, float DeltaTime)
     
 }
 */
-
 //orbit cam, follows player controller rotation
 simulated function bool CalcCamera( float fDeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV )
 {
