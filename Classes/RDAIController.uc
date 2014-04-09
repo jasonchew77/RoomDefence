@@ -1,7 +1,5 @@
-class RDAIController extends UTBot;
-
+class RDAIController extends AIController;
 
 defaultproperties {
-
 
 }

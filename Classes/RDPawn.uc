@@ -98,6 +98,5 @@ defaultproperties
     CamOffsetDistance = 200.0
     CamZoomTick = 20.0    
     MaxMultiJump = 1
-   
     
 }
