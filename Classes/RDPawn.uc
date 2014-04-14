@@ -97,6 +97,8 @@ defaultproperties
     CamMaxDistance = 350.0
     CamOffsetDistance = 200.0
     CamZoomTick = 20.0    
-    MaxMultiJump = 1
+    MaxMultiJump = 0
+    GroundSpeed=100
+    AirSpeed=200
     
 }

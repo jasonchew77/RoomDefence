@@ -1,8 +1,7 @@
-class RDTestAI extends Actor;
-
-            
+class RDTestAI extends UTBot;
+ 
 
 defaultproperties
 {
-    
+  
 }
