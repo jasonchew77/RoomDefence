@@ -9,15 +9,6 @@
 
 class RDNavigation extends NavigationPoint;
 
-simulated event PostBeginPlay()
-{
-    super.PostBeginPlay();
-}
-
-simulated event PreBeginPlay()
-{
-    super.PreBeginPlay();
-}
 
 defaultproperties
 {

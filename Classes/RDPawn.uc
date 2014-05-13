@@ -92,10 +92,10 @@ defaultproperties
 {
     Physics = PHYS_Flying
     LandMovementState = PlayerFlying
-    CamHeight = 90.0
+    CamHeight = 80.0
     CamMinDistance = 40.0
     CamMaxDistance = 350.0
-    CamOffsetDistance = 200.0
+    CamOffsetDistance = 250.0
     CamZoomTick = 20.0    
     MaxMultiJump = 0
     GroundSpeed=100
