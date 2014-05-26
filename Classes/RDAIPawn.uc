@@ -1,27 +1,73 @@
-class RDAIPawn extends UTPawn;
+class RDAIPawn extends UDKPawn;
+
+var DynamicLightEnvironmentComponent LightEnvironment;
+//var ActorComponent NavigationHandle;
+
+simulated event PostBeginPlay()
+{
+    super.PostBeginPlay();
+    SetPhysics(PHYS_Walking);
+    AddDefaultInventory();
+    
+   // NavigationHandle = new(self) class'NavigationHandle';
+
+}
+
 
 
 function AddDefaultInventory()
 {
-    InvManager.CreateInventory(class'UTGame.UTWeap_LinkGun', false);
+    InvManager.CreateInventory(class'UTGame.UTWeap_LinkGun');
 }
 
-simulated function PostBeginPlay()
-{
-  
-    AddDefaultInventory();
-    Super(Pawn).PostBeginPlay();
 
-    UTInventoryManager(InvManager).bInfiniteAmmo = true;
-}
+/*
 
-defaultproperties {
+state Follow {
+    function bool FindNavMeshPath()
+    {
+        // Clear cache and constraints (ignore recycling for the moment)
+        NavigationHandle.PathConstraintList = none;
+        NavigationHandle.PathGoalList = none;
+ 
+        // Create constraints
+        class'NavMeshPath_Toward'.static.TowardGoal( NavigationHandle,target );
+        class'NavMeshGoal_At'.static.AtActor( NavigationHandle, target,32 );
+ 
+        // Find path
+        return NavigationHandle.FindPath();
+    }
+Begin:
+    if( FindNavMeshPath() )
+    {
+        NavigationHandle.SetFinalDestination(target.Location);
+        FlushPersistentDebugLines();
+        NavigationHandle.DrawPathCache(,TRUE);
+ 
+        // move to the first node on the path
+        if( NavigationHandle.GetNextMoveLocation( TempDest, Pawn.GetCollisionRadius()) )
+        {
+            DrawDebugLine(Pawn.Location,TempDest,255,0,0,true);
+            DrawDebugSphere(TempDest,16,20,255,0,0,true);
+ 
+            MoveTo( TempDest, target );
+        }
+        
+    }
     
+    goto 'Begin';
+
+}
+
+*/
+
+defaultproperties
+{
    WalkingPct=+0.4
    CrouchedPct=+0.4
    BaseEyeHeight=38.0
    EyeHeight=38.0
-   GroundSpeed=1440.0
+   GroundSpeed=440.0
    AirSpeed=440.0
    WaterSpeed=220.0
    AccelRate=2048.0
@@ -79,8 +125,9 @@ defaultproperties {
       CollisionRadius=+0021.000000
       CollisionHeight=+0044.000000
    End Object
-   CylinderComponent=CollisionCylinder
+  CylinderComponent=CollisionCylinder
    
     ControllerClass=class'RoomDefence.RDAIController'
     InventoryManagerClass=class'UTInventoryManager'
+    
 }

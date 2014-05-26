@@ -1,4 +1,4 @@
-class RDPawn extends UTPawn;
+class RDPawn extends UDKPawn;
 
 var float CamOffsetDistance; //distance to offset the camera from the player in unreal units
 var float CamMinDistance, CamMaxDistance;
@@ -10,10 +10,18 @@ simulated event PostBeginPlay()
     super.PostBeginPlay();
     SetPhysics(PHYS_Flying);
     //`Log("Custom Pawn up"); //debug
+    AddDefaultInventory();
 
 }
 
+function AddDefaultInventory()
+{
+    InvManager.CreateInventory(class'UTGame.UTWeap_LinkGun');
+}
+
+
 //override to make player mesh visible by default
+/*
 simulated event BecomeViewTarget( PlayerController PC )
 {
    local UTPlayerController UTPC;
@@ -31,7 +39,7 @@ simulated event BecomeViewTarget( PlayerController PC )
          UTPC.bNoCrosshair = true;
       }
    }
-}
+}*/
    /*
 //only update pawn rotation while moving
 simulated function FaceRotation(rotator NewRotation, float DeltaTime)
@@ -100,5 +108,47 @@ defaultproperties
     MaxMultiJump = 0
     GroundSpeed=100
     AirSpeed=200
+  
+     Begin Object Class=SkeletalMeshComponent Name=WPawnSkeletalMeshComponent
+       //Your Mesh Properties
+      SkeletalMesh=SkeletalMesh'CH_IronGuard_Male.Mesh.SK_CH_IronGuard_MaleA'
+      AnimTreeTemplate=AnimTree'CH_AnimHuman_Tree.AT_CH_Human'
+      PhysicsAsset=PhysicsAsset'CH_AnimCorrupt.Mesh.SK_CH_Corrupt_Male_Physics'
+      AnimSets(0)=AnimSet'CH_AnimHuman.Anims.K_AnimHuman_BaseMale'
+      Translation=(Z=8.0)
+      Scale=1.075
+      //General Mesh Properties
+      bCacheAnimSequenceNodes=false
+      AlwaysLoadOnClient=true
+      AlwaysLoadOnServer=true
+      bOwnerNoSee=false
+      CastShadow=true
+      BlockRigidBody=TRUE
+      bUpdateSkelWhenNotRendered=false
+      bIgnoreControllersWhenNotRendered=TRUE
+      bUpdateKinematicBonesFromAnimation=true
+      bCastDynamicShadow=true
+      RBChannel=RBCC_Untitled3
+      RBCollideWithChannels=(Untitled3=true)
+      LightEnvironment=MyLightEnvironment
+      bOverrideAttachmentOwnerVisibility=true
+      bAcceptsDynamicDecals=FALSE
+      bHasPhysicsAssetInstance=true
+      TickGroup=TG_PreAsyncWork
+      MinDistFactorForKinematicUpdate=0.2
+      bChartDistanceFactor=true
+      RBDominanceGroup=20
+      bUseOnePassLightingOnTranslucency=TRUE
+      bPerBoneMotionBlur=true
+      
+      SkeletalMesh=SkeletalMesh'WP_LinkGun.Mesh.SK_WP_Linkgun_3P'
+      
+  End Object
+      Mesh=WPawnSkeletalMeshComponent
+      Components.Add(WPawnSkeletalMeshComponent)
+      Mesh=GunMesh
+      Components.Add(GunMesh)
+
+    InventoryManagerClass=class'UTGame.UTInventoryManager'
     
 }
