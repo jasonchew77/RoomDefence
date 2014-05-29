@@ -67,7 +67,7 @@ defaultproperties
    CrouchedPct=+0.4
    BaseEyeHeight=38.0
    EyeHeight=38.0
-   GroundSpeed=440.0
+   GroundSpeed=240.0
    AirSpeed=440.0
    WaterSpeed=220.0
    AccelRate=2048.0

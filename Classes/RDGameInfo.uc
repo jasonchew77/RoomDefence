@@ -10,8 +10,9 @@ var array<RDAIPawn> TestSpawn;
 function PostBeginPlay()
 {
    
+    
     SpawnMobs();
-
+ 
   //  ENEMYPLAYER.push_back(UTBot);
   //ENEMYPLAYER= Spawn(class'RDAIController');
   //ENEMYPLAYER.SpawnDefaultController();
@@ -26,7 +27,7 @@ function SpawnMobs_child()
     v = Vect(1365.715088,676.012695,-400.000000); 
     
        
-       //for (i=0; i<10; i++){
+    //for (i=0; i<10; i++){
         //TestSpawn[i] = SpawnRDPawn();
     //   ENEMYPLAYER[i] = new UTBot();
        TestSpawn[i] = Spawn(class'RDAIPawn',,,v,,,True);
@@ -35,18 +36,23 @@ function SpawnMobs_child()
 
        
        `log("Spawn called" @ i);
-        i=i+1;
-    //  }
+ 
+    
+   //}
 }
 
 
     function SpawnMobs()
 {
     
-    `log("Begintimer");
-    SetTimer(3, true, 'SpawnMobs_child' );
     
+    
+   // `log("Begintimer");
+   // SetTimer(3, true, 'SpawnMobs_child' );
+    for (i=0; i<NoE; i++)
+{
     SpawnMobs_child();
+}
     /*
  for (i=0; i<NoE; i++){
        TestSpawn[i] = SpawnRDPawn();
@@ -80,7 +86,7 @@ defaultproperties
     PlayerControllerClass = class'RoomDefence.RDPlayerController'
     bDelayedStart = false
     bRestartLevel = false
-    NoE = 10
+    NoE = 5
     i=0
     //bCustomBots=true
     //BotClass=class'RDAIController'
