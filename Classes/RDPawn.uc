@@ -1,15 +1,26 @@
-class RDPawn extends UTPawn;
+class RDPawn extends UDKPawn;
 
+var DynamicLightEnvironmentComponent LightEnvironment;
 var float CamOffsetDistance; //distance to offset the camera from the player in unreal units
 var float CamMinDistance, CamMaxDistance;
 var float CamZoomTick; //how far to zoom in/out per command
 var float CamHeight; //how high cam is relative to pawn pelvis
+var float MouseLookAim;
+
+function AddDefaultInventory()
+{
+    InvManager.CreateInventory(class ' UTGame.UTWeap_linkGun');
+}
 
 simulated event PostBeginPlay()
 {
     super.PostBeginPlay();
     SetPhysics(PHYS_Flying);
     //`Log("Custom Pawn up"); //debug
+    
+    AddDefaultInventory();
+    
+    UTInventoryManager(InvManager).bInfiniteAmmo = true;
 
 }
 
@@ -86,18 +97,94 @@ simulated function CamZoomOut()
 {
     if(CamOffsetDistance < CamMaxDistance)  CamOffsetDistance+=CamZoomTick;
 }
+/*
+function MouseAimUpdater(float MouseYInput) 
+ 
+ {
+ MouseLookAim += MouseYInput; 
+AimNode.AngleOffset.Y -= (MouseYInput/16000) ;
+
+if (MouseLookAim < 16000 && MouseLookAim > -16000) 
+ { 
+ MouseLookAim+=MouseYInput; 
+ AimNode.AngleOffset.Y -= (MouseYInput/16000); 
+ } 
+else 
+ if (MouseLookAim >= 16000 && MouseYInput <0) 
+ { 
+ MouseLookAim+=MouseYInput; 
+ AimNode.AngleOffset.Y -= (MouseYInput/16000); 
+ } 
+ else 
+ if (MouseLookAim <=-16000 && MouseYInput >0) 
+ { 
+ MouseLookAim+=MouseYInput; 
+ AimNode.AngleOffset.Y -= (MouseYInput/16000); 
+ } 
+
+}*/
 
 
 defaultproperties
 {
     Physics = PHYS_Flying
     LandMovementState = PlayerFlying
-    CamHeight = 90.0
+    CamHeight = 80.0
     CamMinDistance = 40.0
     CamMaxDistance = 350.0
     CamOffsetDistance = 200.0
     CamZoomTick = 20.0    
-    MaxMultiJump = 1
+    //MaxMultiJump = 1
+     // Components.Remove(Sprite)    
    
-    
+    Begin Object Class=DynamicLightEnvironmentComponent Name=MyLightEnvironment
+      bSynthesizeSHLight=TRUE
+      bIsCharacterLightEnvironment=TRUE
+      bUseBooleanEnvironmentShadowing=FALSE
+   End Object
+   Components.Add(MyLightEnvironment)
+   LightEnvironment=MyLightEnvironment
+
+   Begin Object Class=SkeletalMeshComponent Name=WPawnSkeletalMeshComponent
+       //Your Mesh Properties
+      SkeletalMesh=SkeletalMesh'charactersanim.mainchar'
+      AnimTreeTemplate=AnimTree'charactersanim.mainchar_animtree'
+      PhysicsAsset=PhysicsAsset'charactersanim.mainchar_Physics''
+      AnimSets(0)=AnimSet'charactersanim.mainchar_anim'
+      Translation=(Z=8.0)
+      Scale=1.075
+      //General Mesh Properties
+      bCacheAnimSequenceNodes=false
+      AlwaysLoadOnClient=true
+      AlwaysLoadOnServer=true
+      bOwnerNoSee=false
+      CastShadow=true
+      BlockRigidBody=TRUE
+      bUpdateSkelWhenNotRendered=false
+      bIgnoreControllersWhenNotRendered=TRUE
+      bUpdateKinematicBonesFromAnimation=true
+      bCastDynamicShadow=true
+      RBChannel=RBCC_Untitled3
+      RBCollideWithChannels=(Untitled3=true)
+      LightEnvironment=MyLightEnvironment
+      bOverrideAttachmentOwnerVisibility=true
+      bAcceptsDynamicDecals=FALSE
+      bHasPhysicsAssetInstance=true
+      TickGroup=TG_PreAsyncWork
+      MinDistFactorForKinematicUpdate=0.2
+      bChartDistanceFactor=true
+      RBDominanceGroup=20
+      bUseOnePassLightingOnTranslucency=TRUE
+      bPerBoneMotionBlur=true
+  End Object
+      Mesh=WPawnSkeletalMeshComponent
+      Components.Add(WPawnSkeletalMeshComponent)
+
+        CollisionType=COLLIDE_BlockAll
+        Begin Object Name=CollisionCylinder
+            CollisionRadius=+0021.000000
+            CollisionHeight=+0048.000000
+        End Object
+        CylinderComponent=CollisionCylinder
+        InventoryManagerClass = class 'UTInventoryManager'
 }

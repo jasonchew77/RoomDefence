@@ -1,5 +1,7 @@
 class RDPlayerController extends UTPlayerController;
 
+
+
 //Update player rotation when walking
 state PlayerWalking
 {
@@ -74,7 +76,16 @@ exec function PrevWeapon()
     RDPawn(Pawn).CamZoomIn();
 }
 
+/*exec function ShowMenu()
+{
+    //Pause();
+}*/
+
+
+
 DefaultProperties
 {
-  
+    bBehindView=true
+    bForceBehindView=true
 }
+
